@@ -88,6 +88,13 @@ nnet.sa <- function(sa.temp, sa.test, sa.testIdx, sa.seed=1, sa.d=100, sa.n=19,.
         control=list(max.time=10, temperature=nrow(sa.test)))
 }
 
+## ga.test is the test set
+## ga.testIdx is the test results expected
+## ga.seed is the start seed
+## ga.d is the absolute value of the upper and lower bounds to the weights
+## ga.n is the number of weights
+## ga.iter is the number of iterations that is passed to the GA function
+
 nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=10, ...) {
   set.seed(ga.seed)
   lower <- as.numeric(-1.*rep(ga.d, ga.n))
