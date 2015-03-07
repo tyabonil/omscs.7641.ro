@@ -1,5 +1,6 @@
 library(nnet)
 library(GenSA)
+library(GA)
 
 ## This function creates a list of neighbours to test
 ## Distance function adds a value to each dimension
@@ -85,5 +86,19 @@ nnet.sa <- function(sa.temp, sa.test, sa.testIdx, sa.seed=1, sa.d=100, sa.n=19,.
   }
   GenSA(par=NULL, fn=fit, lower=lower, upper=upper,
         control=list(max.time=10, temperature=nrow(sa.test)))
+}
+
+nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=10, ...) {
+  set.seed(ga.seed)
+  lower <- as.numeric(-1.*rep(ga.d, ga.n))
+  upper <- as.numeric(-1.*lower)
+  fit <- function(fit.wts, fit.test=ga.test, fit.testIdx=ga.testIdx) {
+    temp.fit <- nnet(..., Wts=fit.wts)
+    temp.predict <- predict(temp.fit, newdata=fit.test, type="class")
+    temp.score <- sum((temp.predict == fit.testIdx) == TRUE)
+    as.numeric(temp.score)
+  }
+  ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter
+        )
 }
 
