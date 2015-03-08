@@ -28,6 +28,8 @@ rhc.nb <- function(val=0, d=0.01) {
 ## rhc.min/max are the min and max values of the weights
 ## rhc.d is the distance threshold to evaluate a neighbour
 ## rhc.n is the number of weights
+## rhc.iter is the number of iterations that we loop over
+
 
 nnet.rhc <- function(rhc.d=0.01, rhc.min=-0.5, rhc.max=0.5, rhc.n=3, rhc.test, rhc.testIdx, rhc.seed=1, rhc.iter=100, ...) {
   t1 <- proc.time()
@@ -76,6 +78,8 @@ nnet.rhc <- function(rhc.d=0.01, rhc.min=-0.5, rhc.max=0.5, rhc.n=3, rhc.test, r
 ## sa.seed is the start seed
 ## sa.d is the absolute value of the upper and lower bounds to the weights
 ## sa.n is the number of weights
+## sa.iter is the number of iterations that is passed to the SA function
+
 
 nnet.sa <- function(sa.temp, sa.test, sa.testIdx, sa.seed=1, sa.d=100, sa.n=19, sa.iter=100, ...) {
   t1 <- proc.time()
