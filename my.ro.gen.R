@@ -35,12 +35,11 @@ nnet.rhc <- function(rhc.d=0.01, rhc.min=-0.5, rhc.max=0.5, rhc.n=3, rhc.test, r
   t1 <- proc.time()
   j <- 1
   rhc.best.score <- 0
-  
-  rhc.keepgoing  <- TRUE
+  #set.seed(rhc.seed)
   for(k in 1:rhc.iter) {
+    rhc.keepgoing <- TRUE
     while(all(rhc.keepgoing)==TRUE) {
       rhc.keepgoing <- FALSE
-      set.seed(rhc.seed*k)
       #print(c(j, rhc.best.score))
       j <- j + 1 
       rhc.initial <- runif(n=rhc.n, min=rhc.min, max=rhc.max)
@@ -121,7 +120,7 @@ nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=1
     temp.score <- sum((temp.predict == fit.testIdx) == TRUE)
     as.numeric(temp.score)
   }
-  best.fit <- ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter, monitor=NULL
+  best.fit <- ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter, monitor=NULL, parallel=TRUE, run=20, seed=ga.seed
         )
   ga.best.fit <- nnet(..., Wts=best.fit@solution[1,])
   ga.best.score <- max(best.fit@fitness)/nrow(ga.test)
