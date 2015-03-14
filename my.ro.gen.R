@@ -108,7 +108,7 @@ nnet.sa <- function(sa.temp, sa.test, sa.testIdx, sa.seed=1, sa.d=100, sa.n=19, 
 ## ga.n is the number of weights
 ## ga.iter is the number of iterations that is passed to the GA function
 
-nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=10, ga.pc, ga.pm, ...) {
+nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=10, ga.pc=NULL, ga.pm=NULL, ...) {
   t1 <- proc.time()
   
   set.seed(ga.seed)
