@@ -120,7 +120,7 @@ nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=1
     temp.score <- sum((temp.predict == fit.testIdx) == TRUE)
     as.numeric(temp.score)
   }
-  best.fit <- ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter, monitor=NULL, parallel=TRUE, run=20, seed=ga.seed, pmutation=ga.pm, pcrossover=ga.pc,
+  best.fit <- ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter, monitor=NULL, parallel=TRUE, run=20, seed=ga.seed, pmutation=ga.pm, pcrossover=ga.pc
         )
   ga.best.fit <- nnet(..., Wts=best.fit@solution[1,])
   ga.best.score <- max(best.fit@fitness)/nrow(ga.test)
