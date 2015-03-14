@@ -93,7 +93,7 @@ nnet.sa <- function(sa.temp, sa.test, sa.testIdx, sa.seed=1, sa.d=100, sa.n=19, 
     as.numeric(temp.score)
   }
   best.fit <- GenSA(par=NULL, fn=fit, lower=lower, upper=upper,
-        control=list(maxit=sa.iter, temperature=nrow(sa.test)))
+        control=list(maxit=sa.iter, temperature=sa.temp))
   sa.best.fit <- nnet(..., Wts=best.fit$par)
   sa.best.score <- (nrow(sa.test) - best.fit$value)/nrow(sa.test)
   sa.best.seed <- sa.seed
@@ -108,7 +108,7 @@ nnet.sa <- function(sa.temp, sa.test, sa.testIdx, sa.seed=1, sa.d=100, sa.n=19, 
 ## ga.n is the number of weights
 ## ga.iter is the number of iterations that is passed to the GA function
 
-nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=10, ...) {
+nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=10, ga.pc, ga.pm, ...) {
   t1 <- proc.time()
   
   set.seed(ga.seed)
@@ -120,7 +120,7 @@ nnet.ga <- function(ga.test, ga.testIdx, ga.seed=1, ga.d=100, ga.n=19, ga.iter=1
     temp.score <- sum((temp.predict == fit.testIdx) == TRUE)
     as.numeric(temp.score)
   }
-  best.fit <- ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter, monitor=NULL, parallel=TRUE, run=20, seed=ga.seed
+  best.fit <- ga(type="real-valued", fitness=fit, min=lower, max=upper, maxiter=ga.iter, monitor=NULL, parallel=TRUE, run=20, seed=ga.seed, pmutation=ga.pm, pcrossover=ga.pc,
         )
   ga.best.fit <- nnet(..., Wts=best.fit@solution[1,])
   ga.best.score <- max(best.fit@fitness)/nrow(ga.test)
